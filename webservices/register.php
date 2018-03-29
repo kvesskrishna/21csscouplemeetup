@@ -1,5 +1,7 @@
 <?php
 require_once('dbconfig.php');
+require_once 'PHPMailer/SMTPMailer.php';
+
 $response=array();
 
 if ($_SERVER['REQUEST_METHOD']=='POST')
@@ -68,7 +70,11 @@ if ($_SERVER['REQUEST_METHOD']=='POST')
 				$message .= '<p style="color:#080;font-size:14px;">Please click on the following link to verify your email with Couple Meetup.</p><br>
 				<a href="http://www.21cssindia.com/couplemeetup/webservices/email_verify?verify='.$token.'"><h4>Verify Link</h4></a>';
 				$message .= '</body></html>';
-				if(mail($to, $subject, $message, $headers)){
+
+        
+
+
+				if(SMTPMailer($to, $subject, $message)){
 				    $response['status_message'] = 'Verification mail has been sent successfully.';
 				    $response['profile_email_verified'] = 0;
 									
